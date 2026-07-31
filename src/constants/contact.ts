@@ -6,3 +6,4 @@ export const TELEGRAM_URL = "https://t.me/holy_index22";
 export const TELEGRAM_HANDLE = "@holy_index22";
 
 export const DISPLAY_NAME = "Svjatoslav";
+export const CV_URL = "/CV.pdf";

@@ -4,6 +4,7 @@ import {
   DISPLAY_NAME,
   LINKEDIN_URL,
   TELEGRAM_URL,
+  CV_URL,
 } from "../constants/contact";
 
 interface HeroSectionProps {
@@ -114,6 +115,15 @@ export function HeroSection({ user }: HeroSectionProps) {
             >
               <i className="fab fa-linkedin-in"></i>
             </a>
+            <a
+              href={CV_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white"
+              aria-label="CV"
+            >
+              <i className="fas fa-file-pdf"></i>
+            </a>
           </div>
         </div>
 
@@ -187,7 +197,9 @@ export function HeroSection({ user }: HeroSectionProps) {
       </div>
 
       <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-gray-500">
-        <span className="font-mono text-xs uppercase tracking-widest">Scroll</span>
+        <span className="font-mono text-xs uppercase tracking-widest">
+          Scroll
+        </span>
         <div className="h-12 w-px bg-gradient-to-b from-gray-500 to-transparent"></div>
       </div>
     </section>
