@@ -63,7 +63,7 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
             </div>
             <div className="mt-6 flex gap-4 text-2xl text-gray-500">
               <i className="fab fa-node-js transition-colors hover:text-green-500"></i>
-              <i className="fab fa-python transition-colors hover:text-blue-500"></i>
+              <i className="fas fa-leaf transition-colors hover:text-green-600"></i>
               <i className="fas fa-database transition-colors hover:text-white"></i>
             </div>
           </div>
@@ -72,16 +72,16 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
             <i className="fab fa-figma mb-3 text-4xl text-pink-400"></i>
             <h4 className="font-bold">UI/UX Design</h4>
             <span className="mt-1 font-mono text-xs text-gray-500">
-              Figma / Sketch
+              Figma / Responsive Design
             </span>
           </div>
 
           <div className="glass group relative col-span-1 row-span-1 flex flex-col items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-white/5 to-accent-600/20 p-6 text-center">
             <div className="bg-grid absolute inset-0 opacity-20"></div>
-            <i className="fas fa-cube mb-3 text-4xl text-white group-hover:animate-spin"></i>
-            <h4 className="relative z-10 font-bold">Creative Coding</h4>
+            <i className="fas fa-cloud mb-3 text-4xl text-white group-hover:animate-pulse"></i>
+            <h4 className="relative z-10 font-bold">Cloud & Deployment</h4>
             <span className="relative z-10 mt-1 font-mono text-xs text-gray-400">
-              Three.js / GSAP
+              Vercel / Docker / GitHub
             </span>
           </div>
 
