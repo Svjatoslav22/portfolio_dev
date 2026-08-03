@@ -1,8 +1,5 @@
 import type { GitHubRepo } from "../types/github";
-import {
-  TECHNOLOGIES,
-  calculateLanguageStats,
-} from "../utils/languages";
+import { TECHNOLOGIES, calculateLanguageStats } from "../utils/languages";
 
 interface SkillsSectionProps {
   repos: GitHubRepo[];
@@ -13,7 +10,13 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
   const topLanguages = languageStats.slice(0, 5).map((s) => s.language);
 
   const frontendPills = Array.from(
-    new Set([...topLanguages, "React", "TypeScript", "Next.js", "Tailwind CSS"])
+    new Set([
+      ...topLanguages,
+      "React",
+      "TypeScript",
+      "Next.js",
+      "Tailwind CSS",
+    ]),
   ).slice(0, 6);
 
   return (
@@ -94,20 +97,20 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
             </div>
             <div className="flex gap-4 text-xl text-gray-500 sm:gap-8 sm:text-2xl">
               <i
-                className="fab fa-git-alt transition-colors hover:text-orange-500"
-                title="Git"
+                className="fas fa-paper-plane transition-colors hover:text-orange-500"
+                title="Postman"
+              ></i>
+              <i
+                className="fas fa-code transition-colors hover:text-blue-500"
+                title="VS Code"
               ></i>
               <i
                 className="fab fa-docker transition-colors hover:text-blue-500"
                 title="Docker"
               ></i>
               <i
-                className="fab fa-aws transition-colors hover:text-yellow-500"
-                title="AWS"
-              ></i>
-              <i
-                className="fab fa-linux transition-colors hover:text-white"
-                title="Linux"
+                className="fab fa-github transition-colors hover:text-white"
+                title="GitHub Desktop"
               ></i>
             </div>
           </div>
