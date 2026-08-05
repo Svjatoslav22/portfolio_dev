@@ -71,7 +71,7 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
             </div>
           </div>
 
-          <div className="glass group col-span-1 row-span-1 flex flex-col items-center justify-center rounded-3xl p-6 text-center transition-transform duration-300 hover:-translate-y-2">
+          <div className="glass group col-span-1 row-span-1 flex flex-col items-center justify-center rounded-3xl p-6 text-center transition-colors duration-300 hover:bg-white/5">
             <i className="fab fa-figma mb-3 text-4xl text-pink-400"></i>
             <h4 className="font-bold">UI/UX Design</h4>
             <span className="mt-1 font-mono text-xs text-gray-500">
