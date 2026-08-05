@@ -1,7 +1,6 @@
 const CACHE_PREFIX = "github_cache_";
 const CACHE_TTL_MS = 30 * 60 * 1000;
-const GITHUB_TOKEN =
-  "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";
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 interface CacheEntry<T> {
   data: T;
