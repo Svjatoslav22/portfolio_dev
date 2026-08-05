@@ -1,5 +1,5 @@
 import type { GitHubRepo } from "../types/github";
-import { TECHNOLOGIES, calculateLanguageStats } from "../utils/languages";
+import { calculateLanguageStats } from "../utils/languages";
 import { TechnologyOrbit } from "../components/TechnologyOrbit";
 
 interface SkillsSectionProps {
@@ -10,15 +10,6 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
   const languageStats = calculateLanguageStats(repos);
   const topLanguages = languageStats.slice(0, 5).map((s) => s.language);
 
-  const frontendPills = Array.from(
-    new Set([
-      ...topLanguages,
-      "React",
-      "TypeScript",
-      "Next.js",
-      "Tailwind CSS",
-    ]),
-  ).slice(0, 6);
 
   return (
     <section id="skills" className="px-6 py-32">
