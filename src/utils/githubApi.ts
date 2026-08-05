@@ -1,5 +1,7 @@
 const CACHE_PREFIX = "github_cache_";
 const CACHE_TTL_MS = 30 * 60 * 1000;
+const GITHUB_TOKEN =
+  "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";
 
 interface CacheEntry<T> {
   data: T;
@@ -30,28 +32,32 @@ function setCache<T>(key: string, data: T): void {
   }
 }
 
-async function fetchWithDelay<T>(url: string, delayMs = 300): Promise<T> {
+async function fetchWithDelay<T>(
+  url: string,
+  delayMs: number = 300,
+): Promise<T> {
   await new Promise((resolve) => setTimeout(resolve, delayMs));
 
-  const headers = {
-    ...(import.meta.env.VITE_GITHUB_TOKEN && {
-      Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
-    }),
-  };
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `token ${GITHUB_TOKEN}`, // Додай цей header
+      Accept: "application/vnd.github.v3+json",
+    },
+  });
 
-  const response = await fetch(url, { headers });
   if (!response.ok) {
-    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+    throw new Error(`GitHub API error: ${response.status}`);
   }
-  return response.json() as Promise<T>;
+  return response.json();
 }
-
 export async function fetchGitHubUser<T>(username: string): Promise<T> {
   const cacheKey = `user_${username}`;
   const cached = getCached<T>(cacheKey);
   if (cached) return cached;
 
-  const data = await fetchWithDelay<T>(`https://api.github.com/users/${username}`);
+  const data = await fetchWithDelay<T>(
+    `https://api.github.com/users/${username}`,
+  );
   setCache(cacheKey, data);
   return data;
 }
@@ -63,7 +69,7 @@ export async function fetchGitHubRepos<T>(username: string): Promise<T> {
 
   const data = await fetchWithDelay<T>(
     `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`,
-    500
+    500,
   );
   setCache(cacheKey, data);
   return data;

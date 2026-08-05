@@ -1,5 +1,6 @@
 import type { GitHubRepo } from "../types/github";
 import { TECHNOLOGIES, calculateLanguageStats } from "../utils/languages";
+import { TechnologyOrbit } from "../components/TechnologyOrbit";
 
 interface SkillsSectionProps {
   repos: GitHubRepo[];
@@ -42,15 +43,8 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
                 Building responsive, accessible, and performant user interfaces.
               </p>
             </div>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {frontendPills.map((pill) => (
-                <span
-                  key={pill}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm"
-                >
-                  {pill}
-                </span>
-              ))}
+            <div className="flex items-center justify-center py-4">
+              <TechnologyOrbit />
             </div>
           </div>
 
@@ -138,16 +132,6 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
           </div>
         )}
 
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {TECHNOLOGIES.map((tech) => (
-            <div
-              key={tech}
-              className="glass rounded-2xl p-4 text-center text-sm text-gray-300"
-            >
-              {tech}
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
