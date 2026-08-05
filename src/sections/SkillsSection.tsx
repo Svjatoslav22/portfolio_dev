@@ -8,8 +8,6 @@ interface SkillsSectionProps {
 
 export function SkillsSection({ repos }: SkillsSectionProps) {
   const languageStats = calculateLanguageStats(repos);
-  const topLanguages = languageStats.slice(0, 5).map((s) => s.language);
-
 
   return (
     <section id="skills" className="px-6 py-32">

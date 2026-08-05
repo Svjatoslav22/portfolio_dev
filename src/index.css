@@ -86,7 +86,7 @@
   cursor: pointer;
 }
 
-@utility pipeline-icon:hover {
+.pipeline-icon:hover {
   transform: scale(1.2) translateY(-5px);
   box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
   border-color: rgba(139, 92, 246, 0.5);
