@@ -19,12 +19,6 @@ const technologies: TechItem[] = [
 export function TechnologyOrbit() {
   return (
     <div className="tech-pipeline">
-      {/* Фонова лінія */}
-      <div className="pipeline-line"></div>
-      
-      {/* Анімований градієнтний імпульс */}
-      <div className="pipeline-pulse"></div>
-
       {/* Іконки технологій */}
       <div className="pipeline-items">
         {technologies.map((tech, index) => (
@@ -40,6 +34,12 @@ export function TechnologyOrbit() {
           </div>
         ))}
       </div>
+
+      {/* Фонова лінія */}
+      <div className="pipeline-line"></div>
+      
+      {/* Анімований градієнтний імпульс */}
+      <div className="pipeline-pulse"></div>
     </div>
   );
 }
