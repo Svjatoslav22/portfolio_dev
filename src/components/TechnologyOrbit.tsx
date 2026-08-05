@@ -22,11 +22,10 @@ export function TechnologyOrbit() {
       <div className="pipeline-pulse"></div>
 
       <div className="pipeline-items">
-        {technologies.map((tech, index) => (
+        {technologies.map((tech) => (
           <div
             key={tech.name}
             className="pipeline-item"
-            style={{ animationDelay: `${index * 0.2}s` }}
             title={tech.name}
           >
             <div className="pipeline-icon">
