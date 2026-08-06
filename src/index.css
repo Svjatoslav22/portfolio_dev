@@ -139,6 +139,23 @@
   }
 }
 
+@keyframes pulse-move {
+  0% {
+    left: -150px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
