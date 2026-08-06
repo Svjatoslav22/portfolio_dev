@@ -121,6 +121,22 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
           </div>
         )}
 
+        <div className="mt-16">
+          <h4 className="mb-8 text-center font-mono text-sm uppercase tracking-widest text-accent-500">
+            Full Tech Stack & Learning Journey
+          </h4>
+          <div className="flex flex-wrap justify-center gap-3">
+            {["HTML5", "CSS3", "JavaScript", "VS Code", "Figma", "GitHub", "React", "Tailwind CSS", "Node.js", "Express", "MySQL", "MongoDB", "Postman", "TypeScript", "Next.js", "Vercel", "Render", "Supabase", "Docker", "NestJS"].map((tech) => (
+              <span
+                key={tech}
+                className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-300 transition-all hover:border-accent-500/50 hover:bg-accent-500/10 hover:text-white"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );
