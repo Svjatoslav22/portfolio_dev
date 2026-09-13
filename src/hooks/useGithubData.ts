@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { GitHubRepo, GitHubUser } from "../types/github";
-import { GITHUB_USERNAME } from "../constants/contact";
-import { fetchGitHubRepos, fetchGitHubUser } from "../utils/githubApi";
+import { fetchGithubData } from "../utils/githubApi";
 
 interface GithubData {
   user: GitHubUser;
@@ -27,8 +26,7 @@ export function useGithubData(): UseGithubDataResult {
         setLoading(true);
         setError(null);
 
-        const user = await fetchGitHubUser<GitHubUser>(GITHUB_USERNAME);
-        const repos = await fetchGitHubRepos<GitHubRepo[]>(GITHUB_USERNAME);
+        const { user, repos } = await fetchGithubData();
         const filteredRepos = repos.filter((repo) => !repo.fork);
 
         if (!cancelled) {

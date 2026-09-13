@@ -1,9 +1,17 @@
+import { GITHUB_USERNAME } from "../constants/contact";
+import type { GitHubRepo, GitHubUser } from "../types/github";
+
 const CACHE_PREFIX = "github_cache_";
 const CACHE_TTL_MS = 30 * 60 * 1000;
 
 interface CacheEntry<T> {
   data: T;
   timestamp: number;
+}
+
+export interface GithubPortfolioData {
+  user: GitHubUser;
+  repos: GitHubRepo[];
 }
 
 function getCached<T>(key: string): T | null {
@@ -30,41 +38,45 @@ function setCache<T>(key: string, data: T): void {
   }
 }
 
-async function fetchWithDelay<T>(url: string, delayMs = 300): Promise<T> {
-  await new Promise((resolve) => setTimeout(resolve, delayMs));
-
-  const headers = {
-    ...(import.meta.env.VITE_GITHUB_TOKEN && {
-      Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
-    }),
-  };
-
-  const response = await fetch(url, { headers });
+async function fetchGitHubJson<T>(url: string): Promise<T> {
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
   }
   return response.json() as Promise<T>;
 }
 
-export async function fetchGitHubUser<T>(username: string): Promise<T> {
-  const cacheKey = `user_${username}`;
-  const cached = getCached<T>(cacheKey);
-  if (cached) return cached;
-
-  const data = await fetchWithDelay<T>(`https://api.github.com/users/${username}`);
-  setCache(cacheKey, data);
-  return data;
+async function fetchFromServer(): Promise<GithubPortfolioData | null> {
+  try {
+    const response = await fetch("/api/github");
+    if (!response.ok) return null;
+    return (await response.json()) as GithubPortfolioData;
+  } catch {
+    return null;
+  }
 }
 
-export async function fetchGitHubRepos<T>(username: string): Promise<T> {
-  const cacheKey = `repos_${username}`;
-  const cached = getCached<T>(cacheKey);
+async function fetchFromGitHubDirect(): Promise<GithubPortfolioData> {
+  const [user, repos] = await Promise.all([
+    fetchGitHubJson<GitHubUser>(
+      `https://api.github.com/users/${GITHUB_USERNAME}`
+    ),
+    fetchGitHubJson<GitHubRepo[]>(
+      `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`
+    ),
+  ]);
+
+  return { user, repos };
+}
+
+export async function fetchGithubData(): Promise<GithubPortfolioData> {
+  const cacheKey = `portfolio_${GITHUB_USERNAME}`;
+  const cached = getCached<GithubPortfolioData>(cacheKey);
   if (cached) return cached;
 
-  const data = await fetchWithDelay<T>(
-    `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`,
-    500
-  );
+  const fromServer = await fetchFromServer();
+  const data = fromServer ?? (await fetchFromGitHubDirect());
+
   setCache(cacheKey, data);
   return data;
 }

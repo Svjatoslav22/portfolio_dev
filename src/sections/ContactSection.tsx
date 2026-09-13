@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import {
+  CV_URL,
   DISPLAY_NAME,
   EMAIL,
   GITHUB_USERNAME,
@@ -12,7 +13,7 @@ type FormStatus = "idle" | "sending" | "success" | "error";
 function openMailtoFallback(name: string, email: string, message: string) {
   const subject = encodeURIComponent(`Message from ${name}`);
   const body = encodeURIComponent(
-    `Name: ${name}\nEmail: ${email}\n\n${message}`
+    `Name: ${name}\nEmail: ${email}\n\n${message}`,
   );
   window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
 }
@@ -166,6 +167,15 @@ export function ContactSection() {
               className="transition-colors hover:text-white"
             >
               <i className="fab fa-linkedin"></i>
+            </a>
+            <a
+              href={CV_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-white"
+              aria-label="CV"
+            >
+              <i className="fas fa-file-pdf"></i>
             </a>
           </div>
         </div>
