@@ -7,6 +7,8 @@ import {
   CV_URL,
 } from "../constants/contact";
 
+import { useTypingEffect } from "../hooks/useTypingEffect";
+
 interface HeroSectionProps {
   user: GitHubUser;
 }
@@ -169,10 +171,17 @@ export function HeroSection({ user }: HeroSectionProps) {
                 <p className="pl-4">
                   <span className="text-green-400">passions</span>: [
                   <span className="text-yellow-300">
-                    &apos;UI/UX&apos;, &apos;Animations&apos;
+                    {useTypingEffect([
+                      "React",
+                      "Next.js",
+                      "Node.js",
+                      "TypeScript",
+                      "MongoDB",
+                    ])}
                   </span>
                   ]
                 </p>
+
                 <p>{"}"};</p>
                 <p className="mt-2 text-gray-500">
                   developer.createMagic();

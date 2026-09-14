@@ -1,8 +1,6 @@
 import type { GitHubRepo } from "../types/github";
-import {
-  TECHNOLOGIES,
-  calculateLanguageStats,
-} from "../utils/languages";
+import { calculateLanguageStats } from "../utils/languages";
+import { TechnologyOrbit } from "../components/TechnologyOrbit";
 
 interface SkillsSectionProps {
   repos: GitHubRepo[];
@@ -10,11 +8,6 @@ interface SkillsSectionProps {
 
 export function SkillsSection({ repos }: SkillsSectionProps) {
   const languageStats = calculateLanguageStats(repos);
-  const topLanguages = languageStats.slice(0, 5).map((s) => s.language);
-
-  const frontendPills = Array.from(
-    new Set([...topLanguages, "React", "TypeScript", "Next.js", "Tailwind CSS"])
-  ).slice(0, 6);
 
   return (
     <section id="skills" className="px-6 py-32">
@@ -39,15 +32,8 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
                 Building responsive, accessible, and performant user interfaces.
               </p>
             </div>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {frontendPills.map((pill) => (
-                <span
-                  key={pill}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm"
-                >
-                  {pill}
-                </span>
-              ))}
+            <div className="flex items-center justify-center py-4">
+              <TechnologyOrbit />
             </div>
           </div>
 
@@ -63,25 +49,25 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
             </div>
             <div className="mt-6 flex gap-4 text-2xl text-gray-500">
               <i className="fab fa-node-js transition-colors hover:text-green-500"></i>
-              <i className="fab fa-python transition-colors hover:text-blue-500"></i>
+              <i className="fas fa-leaf transition-colors hover:text-green-600"></i>
               <i className="fas fa-database transition-colors hover:text-white"></i>
             </div>
           </div>
 
-          <div className="glass group col-span-1 row-span-1 flex flex-col items-center justify-center rounded-3xl p-6 text-center transition-transform duration-300 hover:-translate-y-2">
+          <div className="glass group col-span-1 row-span-1 flex flex-col items-center justify-center rounded-3xl p-6 text-center transition-colors duration-300 hover:bg-white/5">
             <i className="fab fa-figma mb-3 text-4xl text-pink-400"></i>
             <h4 className="font-bold">UI/UX Design</h4>
             <span className="mt-1 font-mono text-xs text-gray-500">
-              Figma / Sketch
+              Figma / Responsive Design
             </span>
           </div>
 
           <div className="glass group relative col-span-1 row-span-1 flex flex-col items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-white/5 to-accent-600/20 p-6 text-center">
             <div className="bg-grid absolute inset-0 opacity-20"></div>
-            <i className="fas fa-cube mb-3 text-4xl text-white group-hover:animate-spin"></i>
-            <h4 className="relative z-10 font-bold">Creative Coding</h4>
+            <i className="fas fa-cloud mb-3 text-4xl text-white group-hover:animate-pulse"></i>
+            <h4 className="relative z-10 font-bold">Cloud & Deployment</h4>
             <span className="relative z-10 mt-1 font-mono text-xs text-gray-400">
-              Three.js / GSAP
+              Vercel / Docker / GitHub
             </span>
           </div>
 
@@ -94,20 +80,20 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
             </div>
             <div className="flex gap-4 text-xl text-gray-500 sm:gap-8 sm:text-2xl">
               <i
-                className="fab fa-git-alt transition-colors hover:text-orange-500"
-                title="Git"
+                className="fas fa-paper-plane transition-colors hover:text-orange-500"
+                title="Postman"
+              ></i>
+              <i
+                className="fas fa-code transition-colors hover:text-blue-500"
+                title="VS Code"
               ></i>
               <i
                 className="fab fa-docker transition-colors hover:text-blue-500"
                 title="Docker"
               ></i>
               <i
-                className="fab fa-aws transition-colors hover:text-yellow-500"
-                title="AWS"
-              ></i>
-              <i
-                className="fab fa-linux transition-colors hover:text-white"
-                title="Linux"
+                className="fab fa-github transition-colors hover:text-white"
+                title="GitHub Desktop"
               ></i>
             </div>
           </div>
@@ -135,16 +121,22 @@ export function SkillsSection({ repos }: SkillsSectionProps) {
           </div>
         )}
 
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {TECHNOLOGIES.map((tech) => (
-            <div
-              key={tech}
-              className="glass rounded-2xl p-4 text-center text-sm text-gray-300"
-            >
-              {tech}
-            </div>
-          ))}
+        <div className="mt-16">
+          <h4 className="mb-8 text-center font-mono text-sm uppercase tracking-widest text-accent-500">
+            Full Tech Stack & Learning Journey
+          </h4>
+          <div className="flex flex-wrap justify-center gap-3">
+            {["HTML5", "CSS3", "JavaScript", "VS Code", "Figma", "GitHub", "React", "Tailwind CSS", "Node.js", "Express", "MySQL", "MongoDB", "Postman", "TypeScript", "Next.js", "Vercel", "Render", "Supabase", "Docker", "NestJS"].map((tech) => (
+              <span
+                key={tech}
+                className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-gray-300 transition-all hover:border-accent-500/50 hover:bg-accent-500/10 hover:text-white"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
+
       </div>
     </section>
   );

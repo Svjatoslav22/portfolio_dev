@@ -95,7 +95,7 @@ export interface LanguageStat {
 }
 
 export function calculateLanguageStats(
-  repos: { language: string | null }[]
+  repos: { language: string | null }[],
 ): LanguageStat[] {
   const counts: Record<string, number> = {};
 
@@ -136,12 +136,24 @@ export function formatRelativeDate(dateString: string): string {
 }
 
 export const TECHNOLOGIES = [
+  "HTML5",
+  "CSS3",
+  "JavaScript",
+  "VS Code",
+  "Figma",
+  "GitHub",
   "React",
+  "Tailwind CSS",
+  "Node.js",
+  "Express",
+  "MySQL",
+  "MongoDB",
+  "Postman",
   "TypeScript",
   "Next.js",
-  "Node.js",
-  "NestJS",
-  "MongoDB",
+  "Vercel",
+  "Render",
+  "Supabase",
   "Docker",
-  "Tailwind CSS",
+  "NestJS",
 ] as const;
