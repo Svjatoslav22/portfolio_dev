@@ -27,10 +27,9 @@ export function useGithubData(): UseGithubDataResult {
         setError(null);
 
         const { user, repos } = await fetchGithubData();
-        const filteredRepos = repos.filter((repo) => !repo.fork);
 
         if (!cancelled) {
-          setData({ user, repos: filteredRepos });
+          setData({ user, repos });
         }
       } catch (err) {
         if (!cancelled) {
