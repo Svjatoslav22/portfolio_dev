@@ -1,7 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { timingSafeEqual } from "node:crypto";
-import { GITHUB_USERNAME } from "../src/constants/contact";
 
+const GITHUB_USERNAME = "Svjatoslav22";
 const PORTFOLIO_TOPIC = "portfolio";
 
 async function fetchGitHub<T>(url: string, token?: string): Promise<T> {
@@ -21,15 +20,7 @@ async function fetchGitHub<T>(url: string, token?: string): Promise<T> {
 
 function isAdmin(password: string | undefined): boolean {
   const expected = process.env.ADMIN_PASSWORD;
-  if (!password || !expected) return false;
-
-  const actualBuffer = Buffer.from(password);
-  const expectedBuffer = Buffer.from(expected);
-
-  return (
-    actualBuffer.length === expectedBuffer.length &&
-    timingSafeEqual(actualBuffer, expectedBuffer)
-  );
+  return Boolean(password && expected && password === expected);
 }
 
 export default async function handler(
@@ -93,14 +84,6 @@ export default async function handler(
       return res.status(200).json({ success: true });
     }
 
-    const userUrl = `https://api.github.com/users/${GITHUB_USERNAME}`;
-    const reposUrl = `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`;
-
-    const [user, repos] = await Promise.all([
-      fetchGitHub(userUrl, token),
-      fetchGitHub<Array<{ topics?: string[] }>>(reposUrl, token),
-    ]);
-
     const password = req.headers["x-admin-password"];
     const adminRequest =
       req.query.admin === "1" &&
@@ -109,6 +92,14 @@ export default async function handler(
     if (req.query.admin === "1" && !adminRequest) {
       return res.status(401).json({ success: false, error: "Invalid password" });
     }
+
+    const userUrl = `https://api.github.com/users/${GITHUB_USERNAME}`;
+    const reposUrl = `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`;
+
+    const [user, repos] = await Promise.all([
+      fetchGitHub(userUrl, token),
+      fetchGitHub<Array<{ topics?: string[] }>>(reposUrl, token),
+    ]);
 
     const visibleRepos = adminRequest
       ? repos
