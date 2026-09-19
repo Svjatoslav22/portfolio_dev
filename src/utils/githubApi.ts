@@ -3,6 +3,7 @@ import type { GitHubRepo, GitHubUser } from "../types/github";
 
 const CACHE_PREFIX = "github_cache_";
 const CACHE_TTL_MS = 30 * 60 * 1000;
+const PORTFOLIO_TOPIC = "portfolio";
 
 interface CacheEntry<T> {
   data: T;
@@ -66,7 +67,10 @@ async function fetchFromGitHubDirect(): Promise<GithubPortfolioData> {
     ),
   ]);
 
-  return { user, repos };
+  return {
+    user,
+    repos: repos.filter((repo) => repo.topics?.includes(PORTFOLIO_TOPIC)),
+  };
 }
 
 export async function fetchGithubData(): Promise<GithubPortfolioData> {

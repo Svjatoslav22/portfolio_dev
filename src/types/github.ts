@@ -18,6 +18,7 @@ export interface GitHubRepo {
   homepage: string | null;
   language: string | null;
   fork: boolean;
+  topics: string[];
   updated_at: string;
   stargazers_count: number;
 }
