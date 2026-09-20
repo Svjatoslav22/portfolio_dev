@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import type { GitHubRepo } from "../types/github";
+import { DragDropProvider } from '@dnd-kit/react'
+import { move } from "@dnd-kit/helpers"
+import { useSortable } from "@dnd-kit/react/sortable"
 
 const PORTFOLIO_TOPIC = "portfolio";
 const CACHE_KEY_PREFIX = "github_cache_";
@@ -13,6 +16,32 @@ export function ProjectsAdmin() {
   const [savingRepo, setSavingRepo] = useState<string | null>(null);
   const [changed, setChanged] = useState(false);
 
+  <DragDropProvider
+
+
+    onDragEnd={(event) => {
+      if (event.canceled) return;
+
+      setRepos((current) =>
+        current ? move(current, event) : current
+      );
+
+
+    }
+    }>
+    {repos?.map((repo, index) => (
+      <SortableProjectRow
+        const { ref, handleRef, isDragging} = useSortable({
+          id: repo.id,
+          index,
+        });
+    key={repo.id}
+    repo={repo}
+    index={index}
+      />
+    ))}
+
+  </DragDropProvider >
   useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.shiftKey && event.code === "Digit9") {
@@ -91,13 +120,13 @@ export function ProjectsAdmin() {
         current?.map((item) =>
           item.id === repo.id
             ? {
-                ...item,
-                topics: visible
-                  ? [...(item.topics ?? []), PORTFOLIO_TOPIC]
-                  : (item.topics ?? []).filter(
-                      (topic) => topic !== PORTFOLIO_TOPIC
-                    ),
-              }
+              ...item,
+              topics: visible
+                ? [...(item.topics ?? []), PORTFOLIO_TOPIC]
+                : (item.topics ?? []).filter(
+                  (topic) => topic !== PORTFOLIO_TOPIC
+                ),
+            }
             : item
         ) ?? null
       );
@@ -178,13 +207,19 @@ export function ProjectsAdmin() {
                       {repo.description || "Без опису"}
                     </span>
                   </span>
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    disabled={savingRepo === repo.name}
-                    onChange={() => toggleRepo(repo)}
-                    className="h-5 w-5 shrink-0 accent-violet-600"
-                  />
+                  Схематично:
+
+                  <div ref={ref} className={isDragging ? "opacity-50" : ""}>
+                    <button
+                      ref={handleRef}
+                      type="button"
+                      aria-label={`Змінити позицію ${repo.name}`}
+                    >
+                      ⠿
+                    </button>
+                    <span>{repo.name}</span>
+                    <input type="checkbox" />
+                  </div>
                 </label>
               );
             })}
