@@ -5,8 +5,8 @@ interface TechItem {
 }
 
 const technologies: TechItem[] = [
-  { name: "HTML5", icon: "fab fa-html5", color: "text-orange-500" },
-  { name: "CSS3", icon: "fab fa-css3-alt", color: "text-blue-500" },
+  { name: "Node.js", icon: "fab fa-node-js", color: "text-green-500" },
+  { name: "MongoDB", icon: "fas fa-database", color: "text-green-400" },
   { name: "JavaScript", icon: "fab fa-js", color: "text-yellow-400" },
   { name: "TypeScript", icon: "fab fa-js", color: "text-blue-600" },
   { name: "React", icon: "fab fa-react", color: "text-cyan-400" },
@@ -18,7 +18,7 @@ export function TechnologyOrbit() {
   return (
     <div className="tech-pipeline">
       <div className="pipeline-line"></div>
-      
+
       <div className="pipeline-pulse"></div>
 
       <div className="pipeline-items">
